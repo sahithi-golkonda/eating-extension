@@ -25,9 +25,14 @@ async function getRestaurant() {
             redirect: 'follow'
         };
 
-        fetch("https://limitless-retreat-60020.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=Austin", requestOptions)
-        .then(response => response.json())
-        .then(result => window.alert(result["businesses"][1]["name"]))
-        .catch(error => window.alert(error));
+        let proxy = "https://limitless-retreat-60020.herokuapp.com/";
+        let url = "https://api.yelp.com/v3/businesses/search?open_now=True&location="
+
+        let jsonData = await fetch(proxy + url + "Austin", requestOptions);
+        let data = await jsonData.json();
+        let restaurant = await data["businesses"][1]["name"];
+
+        window.alert(restaurant);
+
     });
 }
